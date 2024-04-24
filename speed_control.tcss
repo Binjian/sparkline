@@ -1,4 +1,24 @@
+Static {
+    align: center middle;
+    layers: below centered above;
+}
 Sparkline {
     width: 100%;
     margin: 2;
+}
+
+#upper {
+    layer: above;
+    offset: 0 -16;
+    background: cyan;
+}
+
+#centered {
+    layer: centered;
+}
+
+#lower {
+    layer: below;
+    offset: 0 16;
+    background: magenta;
 }
