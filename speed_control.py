@@ -11,11 +11,11 @@ from textual.timer import Timer
 
 # data = [random.expovariate(1 / 3) for _ in range(1000)]
 
-random.seed(73)
-data = [random.expovariate(1 / 3) for _ in range(1000)]
+# random.seed(73)
+# data = [random.expovariate(1 / 3) for _ in range(1000)]
 # data = [random.expovariate(1 / 3) for _ in range(1000)]
 
-df = pd.read_csv(r'./data/short_noise.csv')
+df = pd.read_csv(r'./data/long_noise.csv')
 df.set_index('second', inplace=True)
 # data = df['speed'].tolist()
 total_time = len(df.index)
@@ -38,8 +38,11 @@ class SpeedControl(Static):
     def watch_time(self, time: float) -> None:
         idx_so_far = int(time)
         speed_so_far = df['speed'].to_list()[:idx_so_far]
-        lower_so_far = (df['lower']-df['speed']).to_list()[:idx_so_far]
-        upper_so_far = (df['upper']-df['speed']).to_list()[:idx_so_far]
+        idx_start = 0 if idx_so_far < 10 else idx_so_far - 10
+        idx_end = idx_so_far if idx_so_far+10 < total_time else None
+        lower_so_far = (df['lower']-df['speed']).to_list()[idx_start:idx_end]
+        upper_so_far = (df['upper']-df['speed']).to_list()[idx_start:idx_end]
+        # lower_so_far = df['lower'].to_list()[:idx_so_far]
         self.query_one("#center").data = speed_so_far
         self.query_one("#lower").data = lower_so_far
         self.query_one("#upper").data = upper_so_far 
