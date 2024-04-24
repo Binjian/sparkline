@@ -69,6 +69,9 @@ class SparklineSummaryFunctionApp(App[None]):
     def action_start(self) -> None:
         self.query_one(SpeedControl).query_one(ProgressBar).update(total=total_time-1)
         self.query_one(SpeedControl).progress_timer.resume()
+        self.query_one("#center").styles.height = 10
+        self.query_one("#lower").styles.height = "1fr"
+        self.query_one("#upper").styles.height = "1fr" 
 
 app = SparklineSummaryFunctionApp()
 if __name__ == "__main__":
