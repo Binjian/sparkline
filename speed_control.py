@@ -15,7 +15,7 @@ from textual.timer import Timer
 # data = [random.expovariate(1 / 3) for _ in range(1000)]
 # data = [random.expovariate(1 / 3) for _ in range(1000)]
 
-df = pd.read_csv(r'./data/long_noise.csv')
+df = pd.read_csv(r'./data/short_noise.csv')
 df.set_index('second', inplace=True)
 # data = df['speed'].tolist()
 total_time = len(df.index)
@@ -57,7 +57,9 @@ class SpeedControl(Static):
 
 
 class SparklineSummaryFunctionApp(App[None]):
-    BINDINGS = [("s", "start", "Start")]
+    BINDINGS = [("s", "start", "Start"), 
+                ("p", "pause", "Pause"), 
+                ("r", "reset", "Reset")]
     CSS_PATH = "speed_control.tcss"
 
     def compose(self) -> ComposeResult:
@@ -72,6 +74,14 @@ class SparklineSummaryFunctionApp(App[None]):
         self.query_one("#center").styles.height = 10
         self.query_one("#lower").styles.height = "1fr"
         self.query_one("#upper").styles.height = "1fr" 
+
+    def action_pause(self) -> None:
+        self.query_one(SpeedControl).progress_timer.pause()
+
+    def action_reset(self) -> None:
+        # self.query_one(SpeedControl).query_one(ProgressBar).update(total=total_time-1)
+        self.query_one(SpeedControl).progress_timer.reset()
+        self.query_one(SpeedControl).start_time = monotonic()
 
 app = SparklineSummaryFunctionApp()
 if __name__ == "__main__":
