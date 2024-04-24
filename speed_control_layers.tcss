@@ -1,0 +1,31 @@
+Static {
+    align: center middle;
+    layers: below centered above;
+}
+Sparkline {
+    width: 100%;
+    margin: 2;
+}
+
+#upper {
+    layer: above;
+    offset: 0 -16;
+    background: cyan;
+}
+
+#centered {
+    layer: center;
+}
+
+#lower {
+    layer: below;
+    background: magenta;
+}
+
+#lower > .spartline--max-color {
+    color: $error;
+}
+
+#lower > .spartline--min-color {
+    color: $error 30%;
+}

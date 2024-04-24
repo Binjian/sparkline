@@ -1,24 +1,30 @@
-Static {
-    align: center middle;
-    layers: below centered above;
-}
 Sparkline {
     width: 100%;
     margin: 2;
 }
 
-#upper {
-    layer: above;
-    offset: 0 -16;
-    background: cyan;
+
+#upper > .sparkline--max-color {
+    color: $error 30%;
 }
 
-#centered {
-    layer: centered;
+#upper > .sparkline--min-color {
+    color: $error;
 }
 
-#lower {
-    layer: below;
-    offset: 0 16;
-    background: magenta;
+#center > .sparkline--max-color {
+    color: $success;
 }
+
+#center > .sparkline--min-color {
+    color: $success 30%;
+}
+
+#lower > .sparkline--max-color {
+    color: $error;
+}
+
+#lower > .sparkline--min-color {
+    color: $error 30%;
+}
+
